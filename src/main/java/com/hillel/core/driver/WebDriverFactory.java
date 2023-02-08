@@ -44,7 +44,7 @@ public class WebDriverFactory {
 
     public static WebDriver getSafariDriver() {
         if (driver == null) {
-            WebDriverManager.safaridriver().setup();
+            WebDriverManager.safaridriver().driverVersion("16.1").setup();
             driver = new SafariDriver();
         }
         return driver;
