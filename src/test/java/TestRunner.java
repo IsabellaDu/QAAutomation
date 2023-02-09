@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import static com.hillel.util.WaitUtils.waitUntilElementIsClickable;
 import static com.hillel.util.WaitUtils.waitUntilElementIsVisible;
 
 public class TestRunner {
@@ -13,7 +14,7 @@ public class TestRunner {
         driver.get(ConfigProvider.getBaseUrl());
 
         WebElement elTestingCourseCta = driver.findElement(By.xpath("//div//a[contains(@href,'https://ithillel.ua/courses/testing')]"));
-        waitUntilElementIsVisible(driver, elTestingCourseCta);
+        waitUntilElementIsClickable(driver, elTestingCourseCta);
 
 
         elTestingCourseCta.click();
