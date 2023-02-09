@@ -12,10 +12,13 @@ public class TestRunner {
         WebDriver driver = WebDriverFactory.getDriver();
         driver.get(ConfigProvider.getBaseUrl());
 
-        WebElement element = driver.findElement(By.xpath("//div//a[contains(@href,'https://ithillel.ua/courses/testing')]"));
-        waitUntilElementIsVisible(driver, element);
+        WebElement elTestingCourseCta = driver.findElement(By.xpath("//div//a[contains(@href,'https://ithillel.ua/courses/testing')]"));
+        waitUntilElementIsVisible(driver, elTestingCourseCta);
 
-        element.click();
+
+        elTestingCourseCta.click();
+        WebElement elTitleOfCourse = driver.findElement(By.xpath("//div/h1[contains(@class,'hero-title')]"));
+        waitUntilElementIsVisible(driver, elTitleOfCourse);
         driver.quit();
     }
 }
