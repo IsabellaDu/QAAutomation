@@ -13,7 +13,7 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "//div//a[contains(@href,'https://ithillel.ua/courses/testing')]")
     private WebElement elTestingCourseCta;
 
-    @FindBy(xpath = "//div/p[contains(@class, \"section-content_descriptor\")]")
+    @FindBy(xpath = "//div/p[contains(@class,'section-content_descriptor')]")
     private WebElement elPageTitle;
 
     public HomePage(WebDriver driver) {

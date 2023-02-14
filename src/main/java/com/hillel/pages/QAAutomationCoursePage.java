@@ -12,18 +12,18 @@ public class QAAutomationCoursePage extends BasePage {
 
     private static final String QA_COURSE_URL = "https://ithillel.ua/courses/qa-automation";
 
-    @FindBy(xpath = "//div[contains(@class, \"site-nav_logo\")]")
+    @FindBy(xpath = "//div[contains(@class,'site-nav_logo')]")
     private WebElement elHillelLogoCta;
 
-    @FindBy(xpath = "//div/h1[contains(@class, \"course-descriptor_header\")]")
+    @FindBy(xpath = "//div/h1[contains(@class,'course-descriptor_header')]")
     private WebElement elCourseTitle;
 
-    private final By elCourseTitlePath = By.xpath("//div/h1[contains(@class, \"course-descriptor_header\")]");
+    private final By elCourseTitlePath = By.xpath("//div/h1[contains(@class,'course-descriptor_header')]");
 
-    @FindBy(xpath = "//div[contains(@class, \"course-rating\")]/span[contains(@class, \"course-rating_average\")]")
+    @FindBy(xpath = "//div[contains(@class,'course-rating')]/span[contains(@class,'course-rating_average')]")
     private WebElement elCourseRate;
 
-    @FindBy(xpath = "//button[contains(@id,\"btn-consultation-hero\")]")
+    @FindBy(xpath = "//button[contains(@id,'btn-consultation-hero')]")
     private WebElement elConsultationCta;
 
 
