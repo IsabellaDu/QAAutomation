@@ -1,25 +1,27 @@
 import com.hillel.core.driver.WebDriverFactory;
-import com.hillel.util.ConfigProvider;
-import org.openqa.selenium.By;
+import com.hillel.pages.QAAutomationCoursePage;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
-import static com.hillel.util.WaitUtils.waitUntilElementIsClickable;
-import static com.hillel.util.WaitUtils.waitUntilElementIsVisible;
+import static com.hillel.core.CommonClickMethods.*;
+
 
 public class TestRunner {
 
     public static void main(String[] args) {
+
         WebDriver driver = WebDriverFactory.getDriver();
-        driver.get(ConfigProvider.getBaseUrl());
 
-        WebElement elTestingCourseCta = driver.findElement(By.xpath("//div//a[contains(@href,'https://ithillel.ua/courses/testing')]"));
-        waitUntilElementIsClickable(driver, elTestingCourseCta);
+        QAAutomationCoursePage qaCoursePage = new QAAutomationCoursePage(driver);
+        qaCoursePage.open();
 
+        System.out.println(qaCoursePage.getCourseTitle());
+        System.out.println(qaCoursePage.getCourseRate());
 
-        elTestingCourseCta.click();
-        WebElement elTitleOfCourse = driver.findElement(By.xpath("//div/h1[contains(@class,'hero-title')]"));
-        waitUntilElementIsVisible(driver, elTitleOfCourse);
+        isClickable(driver, qaCoursePage.getElConsultationCta());
+        //clickAfterEnsureElementIsClickable(driver, qaCoursePage.getElConsultationCta());
+        //clickToBtnAndCheckElementIsNotVisible(driver, qaCoursePage.getElHillelLogoCta(), qaCoursePage.getElCourseTitlePath());
+
         driver.quit();
+
     }
 }
