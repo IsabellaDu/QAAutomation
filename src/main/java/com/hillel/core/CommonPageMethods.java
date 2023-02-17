@@ -1,16 +1,14 @@
 package com.hillel.core;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static com.hillel.util.WaitUtils.*;
 
-public class CommonClickMethods {
+public class CommonPageMethods {
 
-    public CommonClickMethods() {
+    public CommonPageMethods() {
     }
 
     public static void clickAfterEnsureElementIsClickable(WebDriver webDriver, WebElement webElement) {
@@ -27,5 +25,19 @@ public class CommonClickMethods {
         WebDriverWait wait = new WebDriverWait(webDriver, 5);
         wait.until(ExpectedConditions.elementToBeClickable(webElement));
         wait.withMessage("This element could not be found to be clickable");
+    }
+
+    public static void scrollPageWithDynamicElToBottom(WebDriver driver) throws InterruptedException {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        long lastHeight = 0;
+        while (true) {
+            Long height = (Long) js.executeScript("return document.body.scrollHeight");
+            if (lastHeight == height) {
+                break;
+            }
+            Thread.sleep(1200);
+            driver.findElement(By.tagName("body")).sendKeys(Keys.END);
+            lastHeight = height;
+        }
     }
 }

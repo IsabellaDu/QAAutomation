@@ -16,6 +16,9 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "//div/p[contains(@class,'section-content_descriptor')]")
     private WebElement elPageTitle;
 
+    @FindBy(xpath = "//li/a[@href='https://blog.ithillel.ua']")
+    private WebElement elBlogCta;
+
     public HomePage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
@@ -34,5 +37,9 @@ public class HomePage extends BasePage {
 
     public WebElement getElTestingCourseCta() {
         return elTestingCourseCta;
+    }
+
+    public WebElement getElBlogCta() {
+        return elBlogCta;
     }
 }
