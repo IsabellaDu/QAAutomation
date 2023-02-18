@@ -2,33 +2,40 @@ package junitTests;
 
 import com.hillel.pages.*;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
-import static com.hillel.core.CommonPageMethods.scrollPageWithDynamicElToBottom;
+import java.util.stream.Stream;
+
+import static com.hillel.core.CommonPageMethods.*;
 
 public class JunitTest extends BaseTest {
+
     HomePage homePage = new HomePage(driver);
     BlogPage blogPage = new BlogPage(driver);
-    FrontEndBlogPage frontEndBlogPage = new FrontEndBlogPage(driver);
-    QABlogPage qaBlogPage = new QABlogPage(driver);
-    GameDevBlogPage gameDevBlogPage = new GameDevBlogPage(driver);
 
-    @Test
-    public void checkAmountOfArticles() throws InterruptedException {
+    private static Stream<Arguments> data() {
+        String frontEndComponentPath = "//main//section[not(contains(@class,'-hero'))]//ul//*[contains(@class, 'btn-theme')][contains(text(), 'Front-end')]";
+        String qaComponentPath = "//main//section[not(contains(@class,'-hero'))]//ul//*[contains(@class, 'btn-theme')][contains(text(), 'Тестування')]";
+        String gameDevComponentPath = "//main//section[not(contains(@class,'-hero'))]//ul//*[contains(@class, 'btn-theme')][contains(text(), 'GameDev')]";
+        int amountExpectedFrontEndArticles = 121;
+        int amountExpectedQAArticles = 87;
+        int amountExpectedGameDevArticles = 5;
+
+        return Stream.of(
+                Arguments.of(frontEndComponentPath, amountExpectedFrontEndArticles),
+                Arguments.of(qaComponentPath, amountExpectedQAArticles),
+                Arguments.of(gameDevComponentPath, amountExpectedGameDevArticles));
+    }
+
+    @ParameterizedTest
+    @MethodSource("data")
+    public void checkAmountOfArticles(String path, int amountOfExpectedArticles) throws InterruptedException {
         homePage.open();
         homePage.getElBlogCta().click();
-        blogPage.getElArticlesFrontEndCta().click();
+        blogPage.getElArticlesByPathCta(path).click();
         scrollPageWithDynamicElToBottom(driver);
-        Assertions.assertEquals(121, frontEndBlogPage.getFullAmountOfFrontEndArticles(), "expected amount of FrontEnd articles doesn't match actual amount");
-        frontEndBlogPage.getElBlogPageLogoCta().click();
-
-        blogPage.getElArticlesQaCta().click();
-        scrollPageWithDynamicElToBottom(driver);
-        Assertions.assertEquals(87, qaBlogPage.getFullAmountOfQAArticles(), "expected amount of QA articles doesn't match actual amount");
-        qaBlogPage.getElBlogPageLogoCta().click();
-
-        blogPage.getElArticlesGameDevCta().click();
-        scrollPageWithDynamicElToBottom(driver);
-        Assertions.assertEquals(5, gameDevBlogPage.getFullAmountOfGameDevArticles(), "expected amount of GameDev articles doesn't match actual amount");
+        Assertions.assertEquals(amountOfExpectedArticles, blogPage.getFullAmountOfArticles(), "expected amount of articles doesn't match actual amount");
     }
 }

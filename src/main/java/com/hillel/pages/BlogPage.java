@@ -4,20 +4,25 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.List;
+
 import static com.hillel.util.WaitUtils.waitUntilElementIsVisible;
 
 public class BlogPage extends BasePage {
 
     private static final String BLOG_URL = "https://blog.ithillel.ua";
 
-    @FindBy(xpath = "//li[@class='theme-list_item']/a[@href='https://blog.ithillel.ua/publications/frontend']")
+    @FindBy(xpath = "//main//section[not(contains(@class,'-hero'))]//ul//*[contains(@class, 'btn-theme')][contains(text(), 'Front-end')]")
     private WebElement elArticlesFrontEndCta;
 
-    @FindBy(xpath = "//li[@class='theme-list_item']/a[@href='https://blog.ithillel.ua/publications/qa']")
+    @FindBy(xpath = "//main//section[not(contains(@class,'-hero'))]//ul//*[contains(@class, 'btn-theme')][contains(text(), 'Тестування')]")
     private WebElement elArticlesQaCta;
 
-    @FindBy(xpath = "//li[@class='theme-list_item']/a[@href='https://blog.ithillel.ua/publications/gamedev']")
+    @FindBy(xpath = "//main//section[not(contains(@class,'-hero'))]//ul//*[contains(@class, 'btn-theme')][contains(text(), 'GameDev')]")
     private WebElement elArticlesGameDevCta;
+
+    @FindBy(xpath = "//ul[@class='posts_list post-list']/li")
+    private List<WebElement> elArticlesList;
 
 
     public BlogPage(WebDriver driver) {
@@ -46,5 +51,13 @@ public class BlogPage extends BasePage {
 
     public WebElement getElArticlesGameDevCta() {
         return elArticlesGameDevCta;
+    }
+
+    public WebElement getElArticlesByPathCta(String path) {
+        return driver.findElement(By.xpath(path));
+    }
+
+    public int getFullAmountOfArticles() {
+        return elArticlesList.size();
     }
 }

@@ -40,4 +40,13 @@ public class CommonPageMethods {
             lastHeight = height;
         }
     }
+
+    public static void scrollPageWithDynamicElToBottomUsingSpinner(WebDriver driver) throws InterruptedException {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        By spinnerPath = By.xpath("//div[@class='posts_spinner']");
+        while (ExpectedConditions.invisibilityOfElementLocated(spinnerPath).apply(driver) == false) {
+            js.executeScript("document.querySelector('.posts_spinner').scrollIntoView()");
+            Thread.sleep(1000);
+        }
+    }
 }
