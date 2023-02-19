@@ -31,11 +31,11 @@ public class JunitTest extends BaseTest {
 
     @ParameterizedTest
     @MethodSource("data")
-    public void checkAmountOfArticles(String path, int amountOfExpectedArticles) throws InterruptedException {
+    public void checkAmountOfArticles(String path, int amountOfExpectedArticles) {
         homePage.open();
         homePage.getElBlogCta().click();
         blogPage.getElArticlesByPathCta(path).click();
-        scrollPageWithDynamicElToBottom(driver);
+        scrollPageWithDynamicElToBottomUsingClassAction(driver);
         Assertions.assertEquals(amountOfExpectedArticles, blogPage.getFullAmountOfArticles(), "expected amount of articles doesn't match actual amount");
     }
 }

@@ -1,6 +1,7 @@
 package com.hillel.core;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -37,6 +38,22 @@ public class CommonPageMethods {
             }
             Thread.sleep(1200);
             driver.findElement(By.tagName("body")).sendKeys(Keys.END);
+            lastHeight = height;
+        }
+    }
+
+    public static void scrollPageWithDynamicElToBottomUsingClassAction(WebDriver driver) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        long lastHeight = 0;
+        Actions action = new Actions(driver);
+
+        while (true) {
+            Long height = (Long) js.executeScript("return document.body.scrollHeight");
+            if (lastHeight == height) {
+                break;
+            }
+            action.pause(1200);
+            action.sendKeys(Keys.END).perform();
             lastHeight = height;
         }
     }
