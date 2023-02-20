@@ -2,8 +2,11 @@ package com.hillel.core;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.List;
 
 import static com.hillel.util.WaitUtils.*;
 
@@ -53,7 +56,7 @@ public class CommonPageMethods {
                 break;
             }
             action.pause(1200);
-            action.sendKeys(Keys.END).perform();
+            action.sendKeys(Keys.END).build().perform();
             lastHeight = height;
         }
     }
@@ -65,5 +68,21 @@ public class CommonPageMethods {
             js.executeScript("document.querySelector('.posts_spinner').scrollIntoView()");
             Thread.sleep(1000);
         }
+    }
+
+    public static void waitUntilInfiniteScrollIsEnded(WebDriver driver) {
+        int TOTAL_WAITER_TIME = 2 * 60 * 1000;
+        int TIME_BETWEEN_SCROLLS = 1200;
+        Actions action = new Actions(driver);
+        WebDriverWait wait = new WebDriverWait(driver, TOTAL_WAITER_TIME);
+        wait.until(new ExpectedCondition<Boolean>() {
+            public Boolean apply(WebDriver driver) {
+                List<WebElement> elsSpinner = driver.findElements(By.xpath("//div[@class='posts_spinner']"));
+                int postsSpinnerSize = elsSpinner.size();
+                action.pause(TIME_BETWEEN_SCROLLS);
+                action.sendKeys(Keys.END).build().perform();
+                return postsSpinnerSize == 0;
+            }
+        });
     }
 }
