@@ -4,6 +4,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import static com.hillel.util.WaitUtils.waitUntilElementIsVisible;
@@ -41,6 +42,7 @@ public class BlogPage extends BasePage {
         waitUntilElementIsVisible(super.driver, elArticlesFrontEndCta);
     }
 
+
     public WebElement getElArticlesFrontEndCta() {
         return elArticlesFrontEndCta;
     }
@@ -53,8 +55,22 @@ public class BlogPage extends BasePage {
         return elArticlesGameDevCta;
     }
 
-    public WebElement getElArticlesByPathCta(String path) {
-        return driver.findElement(By.xpath(path));
+    public List<WebElement> getListOfThemesEls() {
+        List<WebElement> listOfThemes = new LinkedList<>();
+        listOfThemes.add(elArticlesFrontEndCta);
+        listOfThemes.add(elArticlesQaCta);
+        listOfThemes.add(elArticlesGameDevCta);
+        return listOfThemes;
+    }
+
+
+    public void clickToElTheme(String string) {
+        List<WebElement> elsThemes = getListOfThemesEls();
+        for (WebElement elsTheme : elsThemes) {
+            if (elsTheme.getText().contains(string)) {
+                elsTheme.click();
+            }
+        }
     }
 
     public int getFullAmountOfArticles() {

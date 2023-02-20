@@ -16,25 +16,24 @@ public class JunitTest extends BaseTest {
     BlogPage blogPage = new BlogPage(driver);
 
     private static Stream<Arguments> data() {
-        String frontEndComponentPath = "//main//section[not(contains(@class,'-hero'))]//ul//*[contains(@class, 'btn-theme')][contains(text(), 'Front-end')]";
-        String qaComponentPath = "//main//section[not(contains(@class,'-hero'))]//ul//*[contains(@class, 'btn-theme')][contains(text(), 'Тестування')]";
-        String gameDevComponentPath = "//main//section[not(contains(@class,'-hero'))]//ul//*[contains(@class, 'btn-theme')][contains(text(), 'GameDev')]";
+        String frontEndComponentText = "Front-end";
+        String qaComponentText = "Тестування";
+        String gameDevComponentText = "GameDev";
         int amountExpectedFrontEndArticles = 121;
         int amountExpectedQAArticles = 87;
         int amountExpectedGameDevArticles = 5;
-
         return Stream.of(
-                Arguments.of(frontEndComponentPath, amountExpectedFrontEndArticles),
-                Arguments.of(qaComponentPath, amountExpectedQAArticles),
-                Arguments.of(gameDevComponentPath, amountExpectedGameDevArticles));
+                Arguments.of(frontEndComponentText, amountExpectedFrontEndArticles),
+                Arguments.of(qaComponentText, amountExpectedQAArticles),
+                Arguments.of(gameDevComponentText, amountExpectedGameDevArticles));
     }
 
-    @ParameterizedTest
+    @ParameterizedTest(name = "{index} => elText={0}, amountOfExpectedArticles={1}")
     @MethodSource("data")
-    public void checkAmountOfArticles(String path, int amountOfExpectedArticles) {
+    public void checkAmountOfArticles(String elText, int amountOfExpectedArticles) {
         homePage.open();
         homePage.getElBlogCta().click();
-        blogPage.getElArticlesByPathCta(path).click();
+        blogPage.clickToElTheme(elText);
         scrollPageWithDynamicElToBottomUsingClassAction(driver);
         Assertions.assertEquals(amountOfExpectedArticles, blogPage.getFullAmountOfArticles(), "expected amount of articles doesn't match actual amount");
     }
