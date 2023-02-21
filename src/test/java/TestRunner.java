@@ -2,7 +2,7 @@ import com.hillel.core.driver.WebDriverFactory;
 import com.hillel.pages.QAAutomationCoursePage;
 import org.openqa.selenium.WebDriver;
 
-import static com.hillel.core.CommonClickMethods.*;
+import static com.hillel.core.CommonPageMethods.*;
 
 
 public class TestRunner {
