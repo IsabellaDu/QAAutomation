@@ -19,6 +19,12 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "//li/a[@href='https://blog.ithillel.ua']")
     private WebElement elBlogCta;
 
+    @FindBy(xpath = "//li[@class='site-nav-menu_item -submenu']/button[@data-dropdown-trigger='aboutSchool']")
+    private WebElement elAboutSchoolDropDown;
+
+    @FindBy(xpath = "//li[@class='site-nav-menu_item -submenu']//a[@href='https://ithillel.ua/coaches']")
+    private WebElement elCoachesCta;
+
     public HomePage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
@@ -41,5 +47,13 @@ public class HomePage extends BasePage {
 
     public WebElement getElBlogCta() {
         return elBlogCta;
+    }
+
+    public WebElement getElAboutSchoolDropDown() {
+        return elAboutSchoolDropDown;
+    }
+
+    public WebElement getElCoachesCta() {
+        return elCoachesCta;
     }
 }
