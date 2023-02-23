@@ -16,6 +16,9 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "//div/p[contains(@class,'section-content_descriptor')]")
     private WebElement elPageTitle;
 
+    @FindBy(xpath = "//li/a[@href='https://blog.ithillel.ua']")
+    private WebElement elBlogCta;
+
     @FindBy(xpath = "//li[@class='site-nav-menu_item -submenu']/button[@data-dropdown-trigger='aboutSchool']")
     private WebElement elAboutSchoolDropDown;
 
@@ -40,6 +43,10 @@ public class HomePage extends BasePage {
 
     public WebElement getElTestingCourseCta() {
         return elTestingCourseCta;
+    }
+
+    public WebElement getElBlogCta() {
+        return elBlogCta;
     }
 
     public WebElement getElAboutSchoolDropDown() {
