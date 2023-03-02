@@ -5,18 +5,22 @@ import com.hillel.core.data.DataProviderMethods;
 import com.hillel.listeners.RetryListener;
 import com.hillel.pages.CoachesPage;
 import com.hillel.pages.HomePage;
+import io.qameta.allure.Issue;
+import io.qameta.allure.Link;
 import org.testng.annotations.Test;
 
 import static com.hillel.util.WaitUtils.*;
 
 public class TestNgTest extends BaseTest {
 
+    @Link("https://example.org/issue/")
     @Test(priority = 1)
     public void openHomePage() {
         HomePage homePage = new HomePage(driver);
         homePage.open();
     }
 
+    @Issue("Jira1")
     @Test(dataProvider = "data", dataProviderClass = DataProviderMethods.class, retryAnalyzer = RetryListener.class)
     public void setBecomeCoachForm(String name, String lastName,
                                    String country, String phoneNumber,
