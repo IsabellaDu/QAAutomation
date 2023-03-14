@@ -1,5 +1,7 @@
 package com.hillel.util;
 
+import lombok.Getter;
+
 import java.io.IOException;
 import java.util.Properties;
 
@@ -10,6 +12,10 @@ public class ConfigProvider {
 
     private static final String BROWSER = prop.getProperty("browser");
     private static final String BASE_URL = prop.getProperty("base.url");
+    @Getter
+    private static final String BASE_API_URL = prop.getProperty("base.api.url");
+    @Getter
+    private static final String BASE_API_PATH = prop.getProperty("path");
 
     private ConfigProvider() {
     }
